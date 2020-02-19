@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-plugin-blinkcard" version="0.0.1">
+    <name>BlinkCard</name>
+
+    <description>A Cordova plugin that integrates BlinkCard from Microblink for scanning credit cards.</description>
+    <license>MIT</license>
+
+    <keywords>cordova,android,ios,microblink,credit cards</keywords>
+    <repo>https://github.com/alhaddado/blinkcard-cordova.git</repo>
+    <issue>https://github.com/alhaddado/blinkcard-cordova/issues</issue>
+
+    <engines>
+        <engine name="cordova" version=">=3.0.0"/>
+    </engines>
+
+    <js-module src="www/BlinkCardReader.js" name="BlinkCardReader">
+        <clobbers target="cordova.plugins.BlinkCardReader"/>
+    </js-module>
+    <platform name="ios">
+        <source-file src="src/ios/CDVMicroblinkScanner.h"/>
+        <source-file src="src/ios/CDVMicroblinkScanner.m"/>
+
+        <framework src="libc++.dylib"/>
+        <framework src="libz.dylib"/>
+        <framework src="libiconv.dylib"/>
+
+
+        <framework src="CoreMedia.framework"/>
+        <framework src="AudioToolbox.framework"/>
+        <framework src="AVFoundation.framework"/>
+
+        <framework src="src/ios/Microblink.framework" custom="true" embed="true"/>
+
+        <preference name="CAMERA_USAGE_DESCRIPTION" default="Need Camera for scanning"/>
+        <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+            <string>$CAMERA_USAGE_DESCRIPTION</string>
+        </config-file>
+
+        <resource-file src="src/ios/Microblink.bundle"/>
+
+        <config-file target="config.xml" parent="/*">
+            <feature name="BlinkCardReader">
+                <param name="ios-package" value="CDVMicroblinkScanner"/>
+            </feature>
+        </config-file>
+
+    </platform>
+
+    <platform name="android">
+
+        <framework src="src/android/libBlinkID.gradle" custom="true" type="gradleReference"/>
+
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="BlinkCardReader">
+                <param name="android-package" value="com.alhaddado.plugin.card.Main"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.CAMERA"/>
+            <uses-permission android:name="android.permission.FLASHLIGHT"/>
+            <uses-feature android:name="android.hardware.camera"/>
+            <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+            <uses-feature android:name="android.hardware.camera.flash" android:required="false"/>
+        </config-file>
+
+        <source-file src="src/android/Main.java" target-dir="src/com/alhaddado/plugin/card"/>
+
+    </platform>
+</plugin>

@@ -1,0 +1,31 @@
+{
+  "name": "cordova-plugin-blinkcard",
+  "version": "0.0.1",
+  "description": "A Cordova plugin that integrates BlinkCard from Microblink for scanning credit cards.",
+  "cordova": {
+    "id": "cordova-plugin-blinkcard",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alhaddado/blinkcard-cordova.git"
+  },
+  "keywords": [
+    "cordova","android","ios","microblink","credit cards"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "author": "Omar Alhaddad <alhaddad.o@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alhaddado/blinkcard-cordova/issues"
+  },
+  "homepage": "https://github.com/alhaddado/blinkcard-cordova"
+}
